@@ -7,9 +7,8 @@
 1. Fork and/or Clone this repo.
   * `$ git clone https://github.com/paypaldev/node-app-examples.git`
 2. Run `$ cd node-app-examples`
-3. Run `$ npm install`
-4. Run `$ node install.js`
-5. When prompted run `$ node setup.js`
+3. Run `$ node install.js`
+4. When prompted run `$ node setup.js`
 
 When running `$ node setup.js` you'll be requested for your `client_id` and `client_secret`.  The application will collect those credentials and create a directory called `ppconfig` with a file `sandbox.json`.  Your credentials will be placed in that file for use with the API's.
 
