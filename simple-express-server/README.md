@@ -68,5 +68,3 @@ In the terminal you will see the following:
 ```
 
 The transaction has been completed. You'll want to review the [app.js](app.js) file for more info.
-
-~~N8~~
