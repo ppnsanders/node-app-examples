@@ -1,9 +1,9 @@
 'use strict';
 
 var express = require('express'),
-	paypal = require('paypal-rest-sdk'),
-	async = require('async'),
-	ppconfig = require('../ppconfig/sandbox');
+    paypal = require('paypal-rest-sdk'),
+    async = require('async'),
+    ppconfig = require('../ppconfig/sandbox');
 
 var app = express();
 
@@ -16,14 +16,14 @@ paypal.configure({
     });
 
 app.listen(3000, function () {
-	console.log('simple-express-server listening on port 3000!');
+    console.log('simple-express-server listening on port 3000!');
 });
 app.get('/', function (req, res) {
-	res.send('<a href="/checkout">Checkout</a>');
+    res.send('<a href="/checkout">Checkout</a>');
 });
 
 app.get('/checkout', function (req, res) {
-	//build PayPal payment request
+    //build PayPal payment request
     var payReq = {
         intent:'sale',
         redirect_urls:{
@@ -51,8 +51,8 @@ app.get('/checkout', function (req, res) {
                         callback(err);
                     } else {
                         console.log('----------------------------------------------------------');
-                 		console.log('----------       ACCESS TOKEN RESPONSE          ----------');
-                 		console.log('----------------------------------------------------------');
+                        console.log('----------       ACCESS TOKEN RESPONSE          ----------');
+                        console.log('----------------------------------------------------------');
                         console.log(JSON.stringify(token));
                         callback(null, token);
                     }
@@ -71,8 +71,8 @@ app.get('/checkout', function (req, res) {
                         callback(err);
                     } else {
                         console.log('----------------------------------------------------------');
-		                console.log('----------     CREATE PAYMENT RESPONSE          ----------');
-		                console.log('----------------------------------------------------------');
+                        console.log('----------     CREATE PAYMENT RESPONSE          ----------');
+                        console.log('----------------------------------------------------------');
                         console.log(JSON.stringify(response));
 
                         var url = response.links[1].href;
@@ -93,8 +93,8 @@ app.get('/checkout', function (req, res) {
                     res.json(err);
                 } else {
                     console.log('----------------------------------------------------------');
-	                console.log('----------          REDIRECTING USER            ----------');
-	                console.log('----------------------------------------------------------');
+                    console.log('----------          REDIRECTING USER            ----------');
+                    console.log('----------------------------------------------------------');
                     console.log(result.redirectUrl);
                     res.redirect(result.redirectUrl);
                 }
@@ -102,36 +102,36 @@ app.get('/checkout', function (req, res) {
 });
 
 app.get('/return', function (req, res) {
-	console.log('----------------------------------------------------------');
-	console.log('----------       RETURN WITH QUERY PARAMS       ----------');
-	console.log('----------------------------------------------------------');
-	console.log(JSON.stringify(req.query));
+    console.log('----------------------------------------------------------');
+    console.log('----------       RETURN WITH QUERY PARAMS       ----------');
+    console.log('----------------------------------------------------------');
+    console.log(JSON.stringify(req.query));
 
-	paypal.payment.get(req.query.paymentId, function (err, payment) {
-		if(err !== null) {
-			console.log('ERROR');
-			console.log(err);
-			res.json(err);
-		} else {
-			console.log('----------------------------------------------------------');
+    paypal.payment.get(req.query.paymentId, function (err, payment) {
+        if(err !== null) {
+            console.log('ERROR');
+            console.log(err);
+            res.json(err);
+        } else {
+            console.log('----------------------------------------------------------');
             console.log('----------             PAYMENT DETAILS          ----------');
             console.log('----------------------------------------------------------');
             console.log(JSON.stringify(payment));
             var execute_details = { 'payer_id': payment.payer.payer_info.payer_id };
             paypal.payment.execute(payment.id, execute_details, function (err, response) {
-            	if(err !== null){
-            		console.log('ERROR');
-					console.log(err);
-					res.json(err);
-            	} else {
-            		console.log('----------------------------------------------------------');
-		            console.log('----------      PAYMENT COMPLETED DETAILS       ----------');
-		            console.log('----------------------------------------------------------');
-		            console.log(JSON.stringify(response));
-		            var displayData = "ID: " + response.id + "<br />State: " + response.state + "<br />";
-		            res.send(displayData);
-            	}
+                if(err !== null){
+                    console.log('ERROR');
+                    console.log(err);
+                    res.json(err);
+                } else {
+                    console.log('----------------------------------------------------------');
+                    console.log('----------      PAYMENT COMPLETED DETAILS       ----------');
+                    console.log('----------------------------------------------------------');
+                    console.log(JSON.stringify(response));
+                    var displayData = "ID: " + response.id + "<br />State: " + response.state + "<br />";
+                    res.send(displayData);
+                }
             })
-		}
-	})
+        }
+    })
 });
