@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/paypaldev/node-app-examples#readme",
   "dependencies": {
-    "child-process-promise": "^2.0.2"
+    "child-process-promise": "^2.0.2",
+    "prompt": "^1.0.0"
   }
 }
