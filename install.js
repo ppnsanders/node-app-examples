@@ -25,6 +25,11 @@ var apps = [
                 name: 'kraken-in-context',
                 npm: true,
                 bower: false
+            },
+            {
+                name: 'kraken-angular-in-context',
+                npm: true,
+                bower: true
             }
     ];
 
