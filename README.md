@@ -21,6 +21,16 @@ Example of `ppconfig/sandbox.json`:
 }
 ```
 
+## Examples in this Repo
+
+1. [Simple-Express-Server](blob/master/express-in-context/README.md)
+  * This is a very basic example of ExpressJS using PayPal API and Express Checkout.
+2. [Express-In-Context](blob/master/express-in-context/README.md)
+  * This is a progression from the [Simple-Express-Server](blob/master/express-in-context/README.md) app, in that it adds the [PayPal In-Context Experience](https://developer.paypal.com/webapps/developer/docs/classic/express-checkout/in-context/).
+3. [Kraken-In-Context](blob/master/kraken-in-context/README.md)
+  * This is a basic example using [KrakenJS](http://krakenjs.com/) with the [PayPal In-Context Experience](https://developer.paypal.com/webapps/developer/docs/classic/express-checkout/in-context/).
+
+
 ## Running specific examples
 
 1. Run `$ cd simple-express-server`

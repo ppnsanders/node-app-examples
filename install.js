@@ -20,6 +20,11 @@ var apps = [
                 name: 'express-in-context',
                 npm: true,
                 bower: false
+            },
+            {
+                name: 'kraken-in-context',
+                npm: true,
+                bower: false
             }
     ];
 
