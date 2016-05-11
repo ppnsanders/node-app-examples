@@ -1,0 +1,24 @@
+{
+  "name": "kraken-angular-single-page-app",
+  "description": "Single Page App using PayPal In-Context and AngularJS",
+  "main": "index.js",
+  "author": "Nate Sanders",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-load": "^0.4.1",
+    "angular-cookies": "^1.5.5",
+    "jquery": "^2.2.3"
+  }
+}

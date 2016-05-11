@@ -35,6 +35,11 @@ var apps = [
                 name: 'hapi-in-context',
                 npm: true,
                 bower: true
+            },
+            {
+                name: 'kraken-angular-single-page-app',
+                npm: true,
+                bower: true
             }
     ];
 

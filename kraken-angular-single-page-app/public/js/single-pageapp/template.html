@@ -1,0 +1,291 @@
+<div id="loading" class="grid" style="display: none; width: 65%; margin: 0 auto; margin-top: 5%; margin-bottom: 5%;">
+    <div class="col-12-12">
+        <div class="spinner-overlay">
+              <div class="spinner spinner-primary"></div>
+        </div>
+    </div>
+</div>
+<div id="errorMsg" class="grid" style="display: none; width: 65%; margin: 0 auto; margin-top: 60px;">
+    <div class="col-12-12">
+        <div class="alert alert-danger">
+            <div>ERROR! <br />
+                <pre>[[model.errorMsg]]</pre>
+            </div>
+            <div class="alert-close">×</div>
+        </div><br />
+    </div>
+</div>
+<div id="cancelMsg" style="display: none; width: 65%; margin: 0 auto; margin-top: 60px;" class="grid">
+    <div class="col-12-12">
+        <div class="alert alert-danger">
+            <div>You canceled your checkout on PayPal, go back to the <a href="/" target="_self">Homepage</a> to start again.</div>
+            <div class="alert-close">×</div>
+        </div><br />
+    </div>
+</div>
+<div id="cartContents" style="display: none; width: 65%; margin: 0 auto;" class="grid">
+    <div class="col-12-12">
+        <h3>Your Shopping Cart</h3>
+    </div>
+    <div class="col-12-12">
+        <table class="table responsive border-undefined">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <tr ng-repeat="item in model.pmtData.transactions[0].item_list.items">
+                    <td>
+                        [[item.name]]
+                    </td>
+                    <td>
+                        [[item.description]]
+                    </td>
+                    <td>
+                        [[item.quantity]]
+                    </td>
+                    <td>
+                        [[item.price | currency: "$"]]
+                    </td>
+                    <td>
+                        [[item.price * item.quantity | currency: "$"]]
+                    </td>
+                </tr>
+                <tr style="border-top-style: double;">
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Subtotal:</strong></td>
+                    <td>[[model.pmtData.transactions[0].amount.details.subtotal | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Shipping:</strong></td>
+                    <td>[[model.pmtData.transactions[0].amount.details.shipping | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Tax:</strong></td>
+                    <td>[[model.pmtData.transactions[0].amount.details.tax | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Grand Total:</strong></td>
+                    <td><strong>[[model.pmtData.transactions[0].amount.total | currency: "$"]]<strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12-12">
+        <div style="float: right; margin-right: 5%; margin-top: 20px;">
+            <div id="paypalForm"></div>
+        </div>
+    </div>
+</div>
+<div id="confirmOrder" style="width: 65%; margin: 0 auto; display: none;" class="grid">
+    <div class="col-12-12">
+        <h3>Confirm Your Order</h3>
+    </div>
+    <div class="col-12-12">
+        <table class="table responsive border-undefined">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <tr ng-repeat="item in model.paymentDetails.transactions[0].item_list.items">
+                    <td>
+                        [[item.name]]
+                    </td>
+                    <td>
+                        [[item.description]]
+                    </td>
+                    <td>
+                        [[item.quantity]]
+                    </td>
+                    <td>
+                        [[item.price | currency: "$"]]
+                    </td>
+                    <td>
+                        [[item.price * item.quantity | currency: "$"]]
+                    </td>
+                </tr>
+                <tr style="border-top-style: double;">
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Subtotal:</strong></td>
+                    <td>[[model.paymentDetails.transactions[0].amount.details.subtotal | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Shipping:</strong></td>
+                    <td>[[model.paymentDetails.transactions[0].amount.details.shipping | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Tax:</strong></td>
+                    <td>[[model.paymentDetails.transactions[0].amount.details.tax | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Grand Total:</strong></td>
+                    <td><strong>[[model.paymentDetails.transactions[0].amount.total | currency: "$"]]</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12-12">
+        <div class="col-6-6">
+            <h3>Your Payment Details</h3>
+            <hr />
+            <table class="table responsive">
+                <tr><td>Payment Method: </td><td><img height="35" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png" alt="Buy now with PayPal" /></td></tr>
+                <tr><td>Payment Currency: </td><td>[[model.paymentDetails.transactions[0].amount.currency]]</td></tr>
+                <tr><td>Payer Name: </td><td>[[model.paymentDetails.payer.payer_info.first_name]] [[model.payer.payer_info.last_name]]</td></tr>
+                <tr><td>Payer Email: </td><td>[[model.paymentDetails.payer.payer_info.email]]</td></tr>
+                <tr><td>Payer Phone: </td><td>[[model.paymentDetails.payer.payer_info.phone]]</td></tr>
+            </table>
+        </div>
+        <div class="col-6-6">
+            <h3>Shipping Details</h3>
+            <hr />
+            <address>
+                [[model.paymentDetails.transactions[0].item_list.shipping_address.recipient_name]]<br />
+                [[model.paymentDetails.transactions[0].item_list.shipping_address.line1]]<br />
+                [[model.paymentDetails.transactions[0].item_list.shipping_address.city]],
+                [[model.paymentDetails.transactions[0].item_list.shipping_address.state]] 
+                [[model.paymentDetails.transactions[0].item_list.shipping_address.postal_code]]<br />
+                [[model.paymentDetails.transactions[0].item_list.shipping_address.country_code]]
+            </address>
+            <hr />
+        </div>
+    </div>
+    <div class="col-12-12">
+        <div style="float: right; margin-right: 5%; margin-top: 20px;">
+            <button id="executePaymentButton" class="btn btn-primary" ng-click="model.executePayment();">Confirm and Pay [[model.paymentDetails.transactions[0].amount.total | currency: "$"]]</button>
+        </div>
+    </div>
+</div>
+<div id="orderReceipt" style="width: 65%; margin: 0 auto; display: none;" class="grid">
+    <div class="col-12-12">
+        <h3>Your Order Receipt <small><em>Print for your records.</em></small></h3>
+    </div>
+    <div class="col-12-12">
+        <table class="table responsive border-undefined">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <tr ng-repeat="item in model.completePaymentDetails.transactions[0].item_list.items">
+                    <td>
+                        [[item.name]]
+                    </td>
+                    <td>
+                        [[item.description]]
+                    </td>
+                    <td>
+                        [[item.quantity]]
+                    </td>
+                    <td>
+                        [[item.price | currency: "$"]]
+                    </td>
+                    <td>
+                        [[item.price * item.quantity | currency: "$"]]
+                    </td>
+                </tr>
+                <tr style="border-top-style: double;">
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Subtotal:</strong></td>
+                    <td>[[model.completePaymentDetails.transactions[0].amount.details.subtotal | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Shipping:</strong></td>
+                    <td>[[model.completePaymentDetails.transactions[0].amount.details.shipping | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Tax:</strong></td>
+                    <td>[[model.completePaymentDetails.transactions[0].amount.details.tax | currency: "$"]]</td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="text-align: right;"><strong>Grand Total:</strong></td>
+                    <td>[[model.completePaymentDetails.transactions[0].amount.total | currency: "$"]]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12-12">
+        <div class="col-4-4">
+            <h3>Payment Details</h3>
+            <hr />
+            <table class="table responsive">
+                <tr><td>Payment Method: </td><td><img height="35" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png" alt="Buy now with PayPal" /></td></tr>
+                <tr><td>Payment Currency: </td><td>[[model.completePaymentDetails.transactions[0].amount.currency]]</td></tr>
+                <tr><td>Payer Name: </td><td>[[model.completePaymentDetails.payer.payer_info.first_name]] [[model.payer.payer_info.last_name]]</td></tr>
+                <tr><td>Payer Email: </td><td>[[model.completePaymentDetails.payer.payer_info.email]]</td></tr>
+                <tr><td>Payer Phone: </td><td>[[model.completePaymentDetails.payer.payer_info.phone]]</td></tr>
+                
+            </table>
+        </div>
+        <div class="col-4-4">
+            <h3>Shipping Details</h3>
+            <hr />
+            <address>
+                [[model.completePaymentDetails.transactions[0].item_list.shipping_address.recipient_name]]<br />
+                [[model.completePaymentDetails.transactions[0].item_list.shipping_address.line1]]<br />
+                [[model.completePaymentDetails.transactions[0].item_list.shipping_address.city]],
+                [[model.completePaymentDetails.transactions[0].item_list.shipping_address.state]] 
+                [[model.completePaymentDetails.transactions[0].item_list.shipping_address.postal_code]]<br />
+                [[model.completePaymentDetails.transactions[0].item_list.shipping_address.country_code]]
+            </address>
+        </div>
+        <div class="col-4-4">
+            <h3>Your Order Details</h3>
+            <hr />
+            <table class="table responsive">
+                <tr><td>Order Created Date: </td><td>[[model.completePaymentDetails.create_time]]</td></tr>
+                <tr><td>Order ID: </td><td><strong>[[model.completePaymentDetails.transactions[0].related_resources[0].sale.id]]</strong></td></tr>
+                <tr><td>Order Status: </td><td><strong>[[model.completePaymentDetails.state | uppercase]]</strong></td></tr>
+            </table>
+        </div>
+    </div>
+</div>
