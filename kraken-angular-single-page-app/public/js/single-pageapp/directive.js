@@ -63,6 +63,7 @@ angular.module('frontEndApp').directive('singlePageapp', [function() {
             angularLoad.loadScript('https://www.paypalobjects.com/api/checkout.js').then(function() {
                 paypal.checkout.setup("MFUX86KBB6EM2", {
                     environment: 'sandbox',
+                    locale: 'en_US',
                     async: true,
                     buttons: [
                         {
@@ -79,6 +80,7 @@ angular.module('frontEndApp').directive('singlePageapp', [function() {
                     console.log('success, token: ', token);
                 });
                 paypal.checkout.events.on('failure', function (error) { console.error('error! ', error)});
+                paypal.checkout.events.on('close', function (error) { console.error('CLOSE! ', error)});
                 paypal.checkout.events.on('return', function (url) { 
                     console.log('return url: ', url);
                     //solution for URL Parsing: https://gist.github.com/jlong/2428561
