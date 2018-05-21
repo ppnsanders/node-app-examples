@@ -3,7 +3,7 @@
 //since we're using DustJS, 
 //we must set the startSymbol and endSymbol to '[[]]'.
 
-angular.module('frontEndApp', ['ngCookies', 'angularLoad'])
+angular.module('frontEndApp', ['ngCookies', 'paypal-button'])
 .config(function ($interpolateProvider, $cookiesProvider) {
     $interpolateProvider
         .startSymbol('[[');

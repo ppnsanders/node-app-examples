@@ -71,7 +71,7 @@ module.exports = function (router) {
         console.log('--------------  PAYMENT DETAILS REQUEST  ----------------');
         console.log('----------------------------------------------------------');
         console.log(JSON.stringify(req.body));
-        paypal.payment.get(req.body.paymentId, function (error, payment){
+        paypal.payment.get(req.body.paymentID, function (error, payment){
             if(error !== null){
               console.log('ERROR');
               console.log(error);

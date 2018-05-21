@@ -3,31 +3,31 @@ angular.module('frontEndApp').directive('cartPage', [function() {
     return {
         restrict: 'E',
         scope: {},
-        controller: ['$scope', 'angularLoad', '$location', 'apiModel', function($scope, angularLoad, $location, apiModel) {
+        controller: ['$scope', '$location', 'apiModel', '$cookies', function($scope, $location, apiModel, $cookies) {
             $scope.model = apiModel;
-            angularLoad.loadScript('https://www.paypalobjects.com/api/checkout.js').then(function() {
-                function doCheckout() {
-                    paypal.checkout.initXO();
-                    var createPayment = $scope.model.createPayment();
-                    createPayment.success(function (response) {
-                        console.log('createPayment Success: ', response);
-                        paypal.checkout.startFlow(response.token);
-                    });
-                    createPayment.error(function (err) {
-                        console.error('createPayment ERROR ', err);
-                        paypal.checkout.closeFlow();
-                    });
-                }
-                console.log('checkout.js loaded');
-                paypal.checkout.setup('MFUX86KBB6EM2', {
-                    environment: 'sandbox',
-                    container: 'paypalForm',
-                    click: doCheckout
-                });
-            }).catch(function (error) {
-                console.log('ERROR: When Rendering Checkout with PayPal Button - ');
-                console.log(error);
-            });
+            $scope.env = 'sandbox'
+            $scope.commit = false
+            $scope.style = {
+                    layout: 'vertical',
+                    color: 'blue',
+                    size: 'large',
+                    shape: 'rect'
+            }
+            $scope.funding = {
+                allowed: [],
+                disallowed: [ paypal.FUNDING.CREDIT, paypal.FUNDING.CARD ]
+            }
+            $scope.payment = function () {
+                return new paypal.Promise((resolve, reject) => {
+                    $scope.model.createPayment().then((res) => {
+                        resolve(res.data.token)
+                    })
+                }) 
+            }
+            $scope.onAuthorize = function(data, actions) {
+                $cookies.putObject('on-auth-data', data);
+                window.location.href = data.returnUrl;
+            }
         }],
         templateUrl: '/js/cart-page/template.html',
     };

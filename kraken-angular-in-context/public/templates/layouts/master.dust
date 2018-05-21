@@ -15,12 +15,14 @@
 
     
         
-        <script src="/js/angular-load.js"></script>
         <script src="/components/angular-cookies/angular-cookies.min.js"></script>
         <!-- Angular App Includes -->
         <script src="/js/app.js"></script>
         <script src="/js/service/api.service.js"></script>
         <script src="/js/cart-page/directive.js"></script>
         <script src="/js/return-page/directive.js"></script>
+
+        <!-- PayPal Checkout.js -->
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     </body>
 </html>

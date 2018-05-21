@@ -8,13 +8,10 @@ angular.module('frontEndApp').service('apiModel', function($http, $cookies, $loc
             'xsrfCookieName': 'XSRF-TOKEN'
         };
         return $http.post(reqUrl, model.pmtData, config).
-            success(function (response) {
+            then(function (response) {
                 model.createPaymentResponse = response;
                 console.log(model.createPaymentResponse);
-            }).
-            error(function (response) {
-                console.log('createPayment ERROR');
-                console.log(response);
+                return model.createPaymentResponse
             });
     }
 
@@ -25,13 +22,9 @@ angular.module('frontEndApp').service('apiModel', function($http, $cookies, $loc
             'xsrfCookieName': 'XSRF-TOKEN'
         };
         return $http.post(reqUrl, model.queryParams, config).
-            success(function (response) {
+            then(function (response) {
                 model.paymentDetails = response;
                 console.log(model.paymentDetails);
-            }).
-            error(function (response) {
-                console.log('getPaymentDetails ERROR');
-                console.log(response);
             });
     }
 
@@ -41,15 +34,11 @@ angular.module('frontEndApp').service('apiModel', function($http, $cookies, $loc
             'xsrfHeaderName': 'X-CSRF-TOKEN',
             'xsrfCookieName': 'XSRF-TOKEN'
         };
-        return $http.post(reqUrl, model.paymentDetails, config).
-            success(function (response) {
+        return $http.post(reqUrl, model.paymentDetails.data, config).
+            then(function (response) {
                 model.completePaymentDetails = response;
                 model.executePaymentButton = false;
                 console.log(model.completePaymentDetails);
-            }).
-            error(function (response) {
-                console.log('executePayment ERROR');
-                console.log(response);
             });
     }
 
@@ -57,8 +46,8 @@ angular.module('frontEndApp').service('apiModel', function($http, $cookies, $loc
         pmtData: {
             intent:'sale',
             redirect_urls:{
-                return_url:'http://localhost:8000/return/#',
-                cancel_url:'http://localhost:8000/cancel/#'
+                return_url:'http://localhost:8000/return',
+                cancel_url:'http://localhost:8000/cancel'
             },
             payer:{
                 payment_method:'paypal'
