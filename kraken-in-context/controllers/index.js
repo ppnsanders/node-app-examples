@@ -84,10 +84,10 @@ module.exports = function (router) {
 	                    res.json(err);
 	                } else {
 	                    console.log('----------------------------------------------------------');
-		                console.log('----------          REDIRECTING USER            ----------');
-		                console.log('----------------------------------------------------------');
-	                    console.log(result.redirectUrl);
-	                    res.redirect(result.redirectUrl);
+	                	console.log('----------        RESPOND TO CHECKOUT.JS        ----------');
+	                	console.log('----------------------------------------------------------');
+	                    console.log(result);
+	                    res.json(result)
 	                }
 	        });
 	});

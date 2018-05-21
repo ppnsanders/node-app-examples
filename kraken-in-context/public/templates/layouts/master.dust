@@ -5,7 +5,7 @@
         <title>{+title /}</title>
     
         <link rel="stylesheet" href="/css/app.css">
-    
+        <script src="//www.paypalobjects.com/api/checkout.js"></script>
     </head>
     <body>
 
