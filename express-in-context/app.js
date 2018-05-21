@@ -93,10 +93,10 @@ app.get('/checkout', function (req, res) {
                     res.json(err);
                 } else {
                     console.log('----------------------------------------------------------');
-	                console.log('----------          REDIRECTING USER            ----------');
+	                console.log('----------        RESPOND TO CHECKOUT.JS        ----------');
 	                console.log('----------------------------------------------------------');
                     console.log(result.redirectUrl);
-                    res.redirect(result.redirectUrl);
+                    res.json(result)
                 }
         });
 });

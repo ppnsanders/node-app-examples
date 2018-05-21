@@ -1,17 +1,35 @@
 <html>
-<head></head>
+<head>
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
 <body>
-	<form id="myContainer" method="get" action="/checkout"></form>
+	<div id="paypal-button-container"></div>
 
 	<script>
-        window.paypalCheckoutReady = function () {
-            paypal.checkout.setup("MFUX86KBB6EM2", {
-                environment: "sandbox",
-                container: "myContainer"
-            });
-		};
+	    paypal.Button.render({
+	        env: 'sandbox',
+	        commit: true,
+	        style: {
+	            layout: 'vertical',
+	            size:   'medium',
+	            shape:  'rect',
+	            color:  'gold'
+	        },
+	        funding: {
+	            allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+	            disallowed: [ ]
+	        },
+	        payment: function(data, actions) {
+	        	const CHECKOUT_URL = '/checkout'
+	            return paypal.request.get(CHECKOUT_URL).then((response) => {
+	            	return response.token
+	            })
+	        },
+	        onAuthorize: function(data, actions) {
+	            window.location.href = data.returnUrl
+	        }
+	    }, '#paypal-button-container');
 	</script>
 
-	<script src="//www.paypalobjects.com/api/checkout.js" async></script>
 </body>
 </html>

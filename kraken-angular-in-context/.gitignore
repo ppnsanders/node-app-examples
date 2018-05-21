@@ -2,3 +2,4 @@ node_modules
 .build
 public/components
 npm-debug.log
+.DS_Store
