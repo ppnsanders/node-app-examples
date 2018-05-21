@@ -155,7 +155,7 @@ const checkoutHandler = function (request, reply) {
                         console.log('----------          REDIRECTING USER            ----------');
                         console.log('----------------------------------------------------------');
                         console.log(result.redirectUrl);
-                        return reply.redirect(result.redirectUrl);
+                        return reply(result);
                     }
             });
         };
