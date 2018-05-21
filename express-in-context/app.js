@@ -95,7 +95,7 @@ app.get('/checkout', function (req, res) {
                     console.log('----------------------------------------------------------');
 	                console.log('----------        RESPOND TO CHECKOUT.JS        ----------');
 	                console.log('----------------------------------------------------------');
-                    console.log(result.redirectUrl);
+                    console.log(result);
                     res.json(result)
                 }
         });
