@@ -19,7 +19,40 @@ app.listen(3000, function () {
     console.log('simple-express-server listening on port 3000!');
 });
 app.get('/', function (req, res) {
-    res.send('<a href="/checkout">Checkout</a>');
+    var html = '<html>' +
+               '<head>' +
+               '<script src="https://www.paypalobjects.com/api/checkout.js"></script>' + 
+               '</head>' + 
+               '<body>' + 
+               '<div id="paypal-button-container"></div>' + 
+               '<script>' + 
+               'paypal.Button.render({ ' + 
+               '    env: "sandbox", ' +
+               '    commit: true, ' +
+               '    style: { ' +
+               '        layout: "vertical", ' +
+               '        size: "medium", ' + 
+               '        shape: "rect", ' +
+               '        color: "gold" ' +
+               '    }, ' +
+               '    funding:{ ' +
+               '        allowed:[ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],' +
+               '        disallowed:[]' + 
+               '    }, ' +
+               '    payment: function(data, actions){ ' +
+               '        return paypal.request.get("/checkout").then(function(response){ ' +
+               '            console.log(response.token); ' + 
+               '            return response.token;' +
+               '        })' +
+               '    }, ' +
+               '    onAuthorize: function(data, actions){ ' +
+               '        window.location.href = data.returnUrl; ' +
+               '    } ' + 
+               '},"#paypal-button-container"); ' +
+               '</script>' +
+               '</body>' +
+               '</html>';
+    res.send(html);
 });
 
 app.get('/checkout', function (req, res) {
@@ -93,10 +126,10 @@ app.get('/checkout', function (req, res) {
                     res.json(err);
                 } else {
                     console.log('----------------------------------------------------------');
-                    console.log('----------          REDIRECTING USER            ----------');
+                    console.log('----------        RESPOND TO CHECKOUT.JS        ----------');
                     console.log('----------------------------------------------------------');
-                    console.log(result.redirectUrl);
-                    res.redirect(result.redirectUrl);
+                    console.log(result);
+                    res.json(result);
                 }
         });
 });
